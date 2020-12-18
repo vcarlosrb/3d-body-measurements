@@ -17,4 +17,4 @@ We strongly recommend generate the vertices with 'A' pose of human body to make 
 
 To get the 'A' pose throught SMPL model you can set all values of the pose param in zero except the positions 50 and 53, the values of these positions must be 5.6 and -5.6 respectively.
 
-![A pose](model.png)
+![A pose](https://raw.githubusercontent.com/vcarlosrb/3d-body-measurements/main/model.png)
