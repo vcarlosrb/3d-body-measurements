@@ -14,6 +14,30 @@ def getMaxX(polygon):
 def getMaxY(polygon):
     return polygon.bounds[3]
 
+def getShoulder(sections, armpits_location):
+    chestPolygon = getLargerAreaPolygon(sections[armpits_location-1])
+    minY = getMinY(chestPolygon)
+    maxY = getMaxY(chestPolygon)
+    sumError = 100000
+    cont = armpits_location
+    position = None
+    shoulder = None
+    length = None
+    for section in sections[armpits_location:]:
+        miY = section.bounds[0][1]
+        maY = section.bounds[1][1]
+        difMin = abs(minY-miY)
+        difMax = abs(maxY-maY)
+        sumDifError = difMin + difMax
+        if sumDifError < sumError:
+            sumError = sumDifError
+            position = cont
+            shoulder = section
+            length = getLargerAreaPolygon(section).length
+        cont = cont + 1
+    
+    return shoulder, position, length
+
 def getArmpits(sections):
     location_percentage = 76 # percentage
     approximate_location = math.floor(location_percentage*len(sections)/100)
@@ -194,6 +218,7 @@ class Body3D(object):
     def getMeasurements(self):
         weight = getWeight(self.mesh)
         height = getHeight(self.mesh)
+        _, shoulder_location, shoulder_length = getShoulder(self.sections, self.armpits_location)
         _, chest_location, chest_length = getChest(self.sections, self.armpits_location)
         _, hip_location, hip_length = getHip(self.sections, self.crotch_location)
         _, waist_location, waist_length = getWaist(self.sections, self.hip_location)
@@ -202,14 +227,16 @@ class Body3D(object):
         inner_leg_length = getInnerLegLength(self.sections, self.crotch_location, self.steps)
         _, neck_location, neck_length = getNeck(self.sections)
         neck_hip_length = getNeckHipLength(neck_location, self.hip_location, self.steps)
-
-        return weight, height, chest_length, hip_length, waist_length, thigh_length, outer_leg_length, inner_leg_length, neck_hip_length
+        return weight, height, shoulder_length, chest_length, hip_length, waist_length, thigh_length, outer_leg_length, inner_leg_length, neck_length, neck_hip_length
 
     def height(self):
         return getHeight(self.mesh)
 
     def weight(self):
         return getWeight(self.mesh)
+
+    def shoulder(self):
+        return getShoulder(self.sections, self.armpits_location)
 
     def chest(self):
         return getChest(self.sections, self.armpits_location)
