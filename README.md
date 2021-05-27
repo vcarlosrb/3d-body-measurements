@@ -12,9 +12,23 @@ You can install the package by running
 pip install body_measurements
 ```
 
+## Body Measurements
+- A: Height (meters)
+- B: Chest (meters)
+- C: Hip (meters)
+- D: Waist (meters)
+- E: Thigh (meters)
+- F: Outer leg (meters)
+- G: Inner leg (meters)
+- H: Neck-Hip length (meters)
+- I: Shoulder (meters)
+- Weight (Kilos - Pending validation)
+
 ## IMPORTANT
 We strongly recommend generate the vertices with 'A' pose of human body to make the measurements to more accurate as possible. 
 
 To get the 'A' pose throught SMPL model you can set all values of the pose param in zero except the positions 50 and 53, the values of these positions must be 5.6 and -5.6 respectively.
 
-![A pose](https://raw.githubusercontent.com/vcarlosrb/3d-body-measurements/main/model.png)
+
+
+![Measurements](https://raw.githubusercontent.com/vcarlosrb/3d-body-measurements/main/images/measurements.png)
