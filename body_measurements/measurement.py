@@ -214,6 +214,7 @@ class Body3D(object):
         _, self.armpits_location, _ = getArmpits(self.sections)
         _, self.crotch_location, _ = getCrotch(self.sections)
         _, self.hip_location, _ = getHip(self.sections, self.crotch_location)
+        _, self.neck_location, _ = getNeck(self.sections)
 
     def getMeasurements(self):
         weight = getWeight(self.mesh)
@@ -260,4 +261,4 @@ class Body3D(object):
         return getNeck(self.sections)
 
     def neckToHip(self):
-        return getNeckHipLength(neck_location, self.hip_location, self.steps)
+        return getNeckHipLength(self.neck_location, self.hip_location, self.steps)

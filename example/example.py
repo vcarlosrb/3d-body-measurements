@@ -2,7 +2,7 @@ import pywavefront
 import numpy as np
 import os
 
-from body_measurements_copy.measurement import Body3D
+from body_measurements.measurement import Body3D
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 data_dir = os.path.join(current_dir, 'data')
